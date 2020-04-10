@@ -1,0 +1,583 @@
+﻿@model VFDP.MyModels.EventWithAlarm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .Count, .Interval {
+        max-width: 87px
+    }
+
+    .Interval {
+        margin-right: 10px
+    }
+
+    .form-group, label {
+        margin-right: 20px
+    }
+
+    .card-header {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+</style>
+
+
+<div class="container">
+
+    <div class="card">
+        <form asp-action="Index">
+
+            <div class="card-header">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label>Type : </label>
+                        <select class="selectpicker form-control" id="TypeSelect" name="Type">
+                            <option value="EventHistory">EventHistory</option>
+                            <option value="AlarmHistory">AlarmHistory</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Time : </label>
+                        <input type="text" id="datetimepicker" class="form-control" name="TimeKey">
+                    </div>
+                    <button type="submit" class="btn btn-primary Create" style="margin-left: auto;">Create</button>
+                </div>
+            </div>
+
+            <div class="card-header">
+                <div class="form-inline">
+
+                    <div class="form-group">
+                        <label>Equipment:</label>
+                        <input type="text" class="form-control" value="VFE-" name="EquipmentName" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Count:</label>
+                        <input class="form-control Count" name="EquipmentCount" />
+                    </div>
+
+                    <div class="form-group Counts">
+                        <label>Chamber:</label>
+                        <select class="selectpicker form-control EventCondition" name="ChamberCount" multiple>
+                            <option value="ALL">ALL</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group Counts">
+                        <label>Port:</label>
+                        <select class="selectpicker form-control EventCondition" name="Port">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group Counts">
+                        <label>Slot:</label>
+                        <select class="selectpicker form-control EventCondition" name="Slot" multiple>
+                            <option value="ALL">ALL</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-header">
+                <div class="form-inline">
+
+                    <div class="form-group">
+                        <label>Lot:</label>
+                        <input type="text" class="form-control" value="VLD-" name="LotName" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Count:</label>
+                        <input class="form-control Count" name="LotCount" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Interval:</label>
+
+
+                        <input class="form-control Interval" placeholder="hours" name="IntervalHour" />
+
+
+
+                        <input class="form-control Interval" placeholder="minutes" name="IntervalMinute" />
+
+
+
+                        <input class="form-control Interval" placeholder="seconds" name="IntervalSecond" />
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card-header">
+                <div class="form-inline">
+
+                    <div class="form-group">
+                        <label>Product:</label>
+                        <input type="text" class="form-control" value="VPD-" name="Product" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Process Flow:</label>
+                        <input type="text" class="form-control" value="VPFD-" name="ProcessFlow" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Operation:</label>
+                        <input type="text" class="form-control" value="VOD-" name="Operation" />
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card-header">
+                <div class="form-inline">
+
+                    <div class="form-group">
+                        <label>Alarm Code:</label>
+                        <select class="selectpicker form-control AlarmCondition" id="AlarmCode" name="AlarmCode">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alarm ID:</label>
+                        <select class="selectpicker form-control AlarmCondition" id="AlarmID" name="AlarmID">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alarm Description:</label>
+                        @*<select class="selectpicker form-control AlarmCondition" id="AlarmDescription">
+                    </select>*@
+                        <input class="form-control AlarmCondition" id="AlarmDescription" name="AlarmDescription" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alarm Model:</label>
+                        <select class="selectpicker form-control AlarmCondition" id="AlarmModel" name="AlarmModel">
+                            <option value="Ramdon">Ramdon</option>
+                            <option value="Sequence">Sequence</option>
+                            <option value="All">All</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+            <div class="card-body">
+
+                <table class="table table-striped table-bordered table-sm table-hover table-responsive">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>
+                                TimeKey
+                            </th>
+                            <th>
+                                EquipmentID
+                            </th>
+                            <th>
+                                EventID
+                            </th>
+                            <th>
+                                AliasName
+                            </th>
+                            <th>
+                                ChamberID
+                            </th>
+                            <th>
+                                LotID
+                            </th>
+                            <th>
+                                WaferID
+                            </th>
+                            <th>
+                                LotCode
+                            </th>
+                            <th>
+                                CarrierID
+                            </th>
+                            <th>
+                                ProductID
+                            </th>
+                            <th>
+                                ProcessFlowID
+                            </th>
+                            <th>
+                                OperationID
+                            </th>
+                            <th>
+                                RecipeID
+                            </th>
+                            <th>
+                                ChamberRecipeID
+                            </th>
+                            <th>
+                                SlotID
+                            </th>
+                            <th>
+                                ProtID
+                            </th>
+                            <th>
+                                ContrilJobID
+                            </th>
+                            <th>
+                                ProcessJobID
+                            </th>
+                            <th>
+                                CreateDatetime
+                            </th>
+                            <th>
+                                CreateUserID
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.EventHis)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TimeKey)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EquipmentId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EventId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AliasName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChamberId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LotId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.WaferId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LotCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CarrierId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProcessFlowId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OperationId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RecipeId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChamberRecipeId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SlotId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PortId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ControlJobId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProcessJobId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreateDatetime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreateUserId)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <hr />
+
+                <table class="table table-striped table-bordered table-sm table-hover table-responsive">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>
+                                TimeKey
+                            </th>
+                            <th>
+                                EquipmentID
+                            </th>
+                            <th>
+                                AlarmID
+                            </th>
+                            <th>
+                                AlarmCode
+                            </th>
+                            <th>
+                                AlarmDescription
+                            </th>
+                            <th>
+                                LotID
+                            </th>
+                            <th>
+                                LotCode
+                            </th>
+                            <th>
+                                RecipeID
+                            </th>
+                            <th>
+                                ProductID
+                            </th>
+                            <th>
+                                ProcessFlowID
+                            </th>
+                            <th>
+                                OperationID
+                            </th>
+                            <th>
+                                CreateDatetime
+                            </th>
+                            <th>
+                                CreateUserID
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AlarmHis)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TimeKey)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EquipmentId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AlarmId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AlarmCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AlarmDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LotId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LotCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RecipeId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProcessFlowId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OperationId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreateDatetime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreateUserId)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+</div>
+
+</div>
+
+
+@section Scripts{
+    <script>
+
+
+        $(document).ready(function () {
+            $('#datetimepicker').datetimepicker({
+                format: 'yyyy-mm-dd hh:ii:ss',
+                autoclose: true
+            });
+
+            $.ajax({
+                url: "/EACreator/GetAlarmCodes",
+                type: "POST",
+                async: true,
+                dataType: "json",
+                success: function (result) {
+                    $.each(result, function (i, item) {
+                        $('#AlarmCode').append('<option  value="'+item+'">' + item + '</option>');
+                    });
+
+                    $('#AlarmCode').selectpicker('refresh');
+
+                     var AlarmCode = $('#AlarmCode').val();
+                        $.ajax({
+                            url: "/Home/GetAlarmID",
+                            type: "POST",
+                            async: true,
+                            data: { AlarmCode: AlarmCode },
+                            dataType: "json",
+                            success: function (result) {
+                                $("#AlarmID").empty();
+                                $.each(result, function (i, item) {
+                                    $('#AlarmID').append('<option  value="'+item+'">' + item + '</option>');
+                                });
+                                $('#AlarmID').selectpicker('refresh');
+
+                                var AlarmID = $('#AlarmID').val();
+                                if (AlarmID!="") {
+                                        $.ajax({
+                                            url: "/Home/GetAlarmDes",
+                                            type: "POST",
+                                            async: true,
+                                            data: { AlarmCode: AlarmCode,AlarmID: AlarmID },
+                                            dataType: "json",
+                                             success: function (result) {
+                                                 $("#AlarmDescription").val("");
+                                                $.each(result, function (i, item) {
+                                                    $("#AlarmDescription").val(item);
+                                                });
+                                            }
+                                     });
+                                }
+                            }
+                        });
+                }
+            });
+
+            var selectValue = $('#TypeSelect option:selected').val();
+            if (selectValue == 'EventHistory') {
+                $('.AlarmCondition').prop('disabled', true);
+                $('.AlarmCondition').selectpicker('refresh');
+            }
+        });
+
+
+
+        $('#AlarmCode').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            var AlarmCode = $('#AlarmCode').val();
+            $.ajax({
+                url: "/EACreator/GetAlarmID",
+                type: "POST",
+                async: true,
+                data: { AlarmCode: AlarmCode },
+                dataType: "json",
+                success: function (result) {
+                    $("#AlarmID").empty();
+                    $.each(result, function (i, item) {
+                        $('#AlarmID').append('<option  value="' + item + '">' + item + '</option>');
+                    });
+                    //$("#AlarmID").val("");
+                    $('#AlarmID').selectpicker('refresh');
+                    var AlarmID = $('#AlarmID').val();
+                    if (AlarmID!="") {
+                    $.ajax({
+                        url: "/EACreator/GetAlarmDes",
+                        type: "POST",
+                        async: true,
+                        data: { AlarmCode: AlarmCode,AlarmID: AlarmID },
+                        dataType: "json",
+                         success: function (result) {
+                             $("#AlarmDescription").val("");
+                            $.each(result, function (i, item) {
+                                $("#AlarmDescription").val(item);
+                            });
+                        }
+                 });
+            }
+                }
+            });
+        });
+
+         $('#AlarmID').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+             var AlarmID = $('#AlarmID').val();
+             var AlarmCode=$('#AlarmCode').val();
+             $.ajax({
+                url: "/EACreator/GetAlarmDes",
+                type: "POST",
+                async: true,
+                data: { AlarmCode: AlarmCode,AlarmID: AlarmID },
+                dataType: "json",
+                 success: function (result) {
+                     $("#AlarmDescription").val("");
+                    $.each(result, function (i, item) {
+                        $("#AlarmDescription").val(item);
+                    });
+                }
+            });
+         });
+
+
+        $('#TypeSelect').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            var selectValue = $('#TypeSelect option:selected').val();
+            if (selectValue == 'EventHistory') {
+                $('.AlarmCondition').prop('disabled', true);
+                $('.EventCondition').prop('disabled', false);
+                $('.AlarmCondition').selectpicker('refresh');
+                $('.EventCondition').selectpicker('refresh');
+            }
+            if (selectValue == 'AlarmHistory') {
+                $('.AlarmCondition').prop('disabled', false);
+                $('.EventCondition').prop('disabled', true);
+                $('.AlarmCondition').selectpicker('refresh');
+                $('.EventCondition').selectpicker('refresh');
+            }
+        });
+
+    </script>
+
+}
+
+

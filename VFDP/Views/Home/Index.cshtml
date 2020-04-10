@@ -1,0 +1,415 @@
+﻿@model VFDP.MyModels.EventWithAlarm
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .Count, .Interval {
+        max-width: 87px
+    }
+
+    .Interval {
+        margin-right: 10px
+    }
+
+    .form-group, label {
+        margin-right: 20px
+    }
+
+    .card-header {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+</style>
+
+<div class="container">
+
+    <div class="card">
+     
+        <div class="card-header">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label>Type : </label>
+                    <select class="selectpicker form-control" id="TypeSelect">
+                        <option>EventHistory</option>
+                        <option>AlarmHistory</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Time : </label>
+                    <input type="text" id="datetimepicker" class="form-control">
+                </div>
+                <button type="button" class="btn btn-primary Create" style="margin-left: auto;">Create</button>
+            </div>
+        </div>
+
+        <div class="card-header">
+            <div class="form-inline">
+
+                <div class="form-group">
+                    <label>Equipment:</label>
+                    <input type="text" class="form-control" value="VFE-" />
+                </div>
+
+                <div class="form-group">
+                    <label>Count:</label>
+                    <input class="form-control Count" />
+                </div>
+
+                <div class="form-group Counts">
+                    <label>Chamber:</label>
+                    <select class="selectpicker form-control EventCondition" multiple>
+                        <option>ALL</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
+                </div>
+
+                <div class="form-group Counts">
+                    <label>Port:</label>
+                    <select class="selectpicker form-control EventCondition">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
+                </div>
+
+                <div class="form-group Counts">
+                    <label>Slot:</label>
+                    <select class="selectpicker form-control EventCondition" multiple>
+                        <option>ALL</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                        <option>21</option>
+                        <option>22</option>
+                        <option>23</option>
+                        <option>24</option>
+                        <option>25</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-header">
+            <div class="form-inline">
+
+                <div class="form-group">
+                    <label>Lot:</label>
+                    <input type="text" class="form-control" value="VLD-" />
+                </div>
+
+                <div class="form-group">
+                    <label>Count:</label>
+                    <input class="form-control Count" />
+                </div>
+
+                <div class="form-group">
+                    <label>Interval:</label>
+
+
+                    <input class="form-control Interval" placeholder="hours" />
+
+
+
+                    <input class="form-control Interval" placeholder="minutes" />
+
+
+
+                    <input class="form-control Interval" placeholder="seconds" />
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-header">
+            <div class="form-inline">
+
+                <div class="form-group">
+                    <label>Product:</label>
+                    <input type="text" class="form-control" value="VPD-" />
+                </div>
+
+                <div class="form-group">
+                    <label>Process Flow:</label>
+                    <input type="text" class="form-control" value="VPFD-" />
+                </div>
+
+                <div class="form-group">
+                    <label>Operation:</label>
+                    <input type="text" class="form-control" value="VOD-" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-header">
+            <div class="form-inline">
+
+                <div class="form-group">
+                    <label>Alarm Code:</label>
+                    <select class="selectpicker form-control AlarmCondition" id="AlarmCode">
+                    </select>      
+                </div>
+
+                <div class="form-group">
+                    <label>Alarm ID:</label>
+                    <select class="selectpicker form-control AlarmCondition" id="AlarmID">
+                    </select>         
+                </div>
+
+                <div class="form-group">
+                    <label>Alarm Description:</label>
+                    @*<select class="selectpicker form-control AlarmCondition" id="AlarmDescription">
+                    </select>*@  
+                    <input  class="form-control AlarmCondition" id="AlarmDescription"/>
+                </div>
+
+                <div class="form-group">
+                    <label>Alarm Model:</label>
+                    <select class="selectpicker form-control AlarmCondition" id="AlarmModel">
+                        <option>Ramdon</option>
+                        <option>Sequence</option>
+                        <option>All</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="card-body">
+           
+            @*@foreach (var item1 in Model.EventHis)
+            {
+                @Html.DisplayNameFor(modelItem => item1.AliasName)
+            }
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor("44")
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DisplayName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CreateDatetime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CreateUserId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UpdateDatetime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UpdateUserId)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DisplayOrder)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DisplayName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreateDatetime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreateUserId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UpdateDatetime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UpdateUserId)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Code }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Code }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Code })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>*@
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts{
+    <script>
+       
+
+        $(document).ready(function () {
+            $('#datetimepicker').datetimepicker({
+                format: 'yyyy-mm-dd hh:ii:ss',
+                autoclose: true
+            });
+
+            $.ajax({
+                url: "/Home/GetAlarmCodes",
+                type: "POST",
+                async: true,
+                dataType: "json",
+                success: function (result) {
+                    $.each(result, function (i, item) {
+                        $('#AlarmCode').append('<option  value="' + item + '">' + item + '</option>');
+                    }); 
+                     
+                    $('#AlarmCode').selectpicker('refresh');
+
+                     var AlarmCode = $('#AlarmCode').val();         
+                        $.ajax({
+                            url: "/Home/GetAlarmID",
+                            type: "POST",
+                            async: true,
+                            data: { AlarmCode: AlarmCode },
+                            dataType: "json",
+                            success: function (result) {
+                                $("#AlarmID").empty();
+                                $.each(result, function (i, item) {
+                                    $('#AlarmID').append('<option  value="' + item + '">' + item + '</option>');
+                                });            
+                                $('#AlarmID').selectpicker('refresh');
+
+                                var AlarmID = $('#AlarmID').val();
+                                if (AlarmID!="") {
+                                        $.ajax({
+                                            url: "/Home/GetAlarmDes",
+                                            type: "POST",
+                                            async: true,
+                                            data: { AlarmCode: AlarmCode,AlarmID: AlarmID },
+                                            dataType: "json",
+                                             success: function (result) {
+                                                 $("#AlarmDescription").val("");
+                                                $.each(result, function (i, item) { 
+                                                    $("#AlarmDescription").val(item);
+                                                });        
+                                            }
+                                     });
+                                }
+                            }
+                        });
+                }
+            });
+
+            var selectValue = $('#TypeSelect option:selected').val();
+            if (selectValue == 'EventHistory') {
+                $('.AlarmCondition').prop('disabled', true);
+                $('.AlarmCondition').selectpicker('refresh');
+            }
+        });
+
+
+
+        $('#AlarmCode').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            var AlarmCode = $('#AlarmCode').val();         
+            $.ajax({
+                url: "/Home/GetAlarmID",
+                type: "POST",
+                async: true,
+                data: { AlarmCode: AlarmCode },
+                dataType: "json",
+                success: function (result) {
+                    $("#AlarmID").empty();
+                    $.each(result, function (i, item) {
+                        $('#AlarmID').append('<option  value="' + item + '">' + item + '</option>');
+                    });    
+                    //$("#AlarmID").val("");
+                    $('#AlarmID').selectpicker('refresh');
+                    var AlarmID = $('#AlarmID').val();
+                    if (AlarmID!="") {
+                    $.ajax({
+                        url: "/Home/GetAlarmDes",
+                        type: "POST",
+                        async: true,
+                        data: { AlarmCode: AlarmCode,AlarmID: AlarmID },
+                        dataType: "json",
+                         success: function (result) {
+                             $("#AlarmDescription").val("");
+                            $.each(result, function (i, item) { 
+                                $("#AlarmDescription").val(item);
+                            });        
+                        }
+                 });
+            }
+                }
+            });          
+        });
+
+         $('#AlarmID').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+             var AlarmID = $('#AlarmID').val();
+             var AlarmCode=$('#AlarmCode').val();       
+             $.ajax({
+                url: "/Home/GetAlarmDes",
+                type: "POST",
+                async: true,
+                data: { AlarmCode: AlarmCode,AlarmID: AlarmID },
+                dataType: "json",
+                 success: function (result) {
+                     $("#AlarmDescription").val("");
+                    $.each(result, function (i, item) { 
+                        $("#AlarmDescription").val(item);
+                    });        
+                }
+            });
+         });
+
+
+        $('#TypeSelect').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            var selectValue = $('#TypeSelect option:selected').val();
+            if (selectValue == 'EventHistory') {
+                $('.AlarmCondition').prop('disabled', true);
+                $('.EventCondition').prop('disabled', false);
+                $('.AlarmCondition').selectpicker('refresh');
+                $('.EventCondition').selectpicker('refresh');
+            }
+            if (selectValue == 'AlarmHistory') {
+                $('.AlarmCondition').prop('disabled', false);
+                $('.EventCondition').prop('disabled', true);
+                $('.AlarmCondition').selectpicker('refresh');
+                $('.EventCondition').selectpicker('refresh');
+            }
+        });
+
+    </script>
+
+}
